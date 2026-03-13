@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const Categorie = require('../models/categorie');
+const { verifyToken } = require('../middleware/verifyToken');
+const { authorizeRoles } = require('../middleware/authorizeRoles');
 // Create a new category
-router.post('/', async (req, res) => {
+router.post('/',verifyToken,authorizeRoles("admin","Super admin"),async (req, res) => {
 try {
 const newcat=new Categorie({
     nomcategorie:req.body.nomcategorie,
@@ -51,7 +53,7 @@ res.status(400).json({ message: err.message });
 }   
 })
 // Delete a category by ID  
-router.delete('/:id', async (req, res) => {
+router.delete('/:id',verifyToken, async (req, res) => {
 try {
 const cat2 = await Categorie.findByIdAndDelete(req.params.id);      
 if (!cat2) {    

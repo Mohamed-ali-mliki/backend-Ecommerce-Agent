@@ -17,6 +17,7 @@ mongoose.connect(process.env.DATABASE)
 app.use('/api/categories', require('./routes/categorie.route'));
 app.use("/api/scategories",require('./routes/scategorie.route'))
 app.use("/api/articles",require('./routes/article.route'))
+app.use("/api/users",require('./routes/user.route'))
 
 
 app.listen(process.env.PORT, () => {
